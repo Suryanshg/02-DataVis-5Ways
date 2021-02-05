@@ -58,6 +58,11 @@
             }
         })
         .attr('opacity',0.5)
+        .on('mouseover',function(){
+            d3.select(this).attr('opacity',1)
+        }).on('mouseout',function(){
+            d3.select(this).attr('opacity',0.5)
+        })
         
         svg.append("text")
         .attr("transform",
