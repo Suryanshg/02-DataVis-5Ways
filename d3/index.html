@@ -58,11 +58,23 @@
             }
         })
         .attr('opacity',0.5)
+        
+        svg.append("text")
+        .attr("transform",
+        "translate(" + (width/2)+","+
+                (550 - 10) + ")")
+        .style("text-anchor","middle")
+        .text("Weight")
+
+        svg.append("text")
+        .attr("y",225)
+        .attr("x",25)
+        .style("text-anchor","middle")
+        .text("MPG")
+        .attr("transform","rotate(-90,25,225)")
 
     })
 
-
- 
 </script>
 
 <!-- if(data.Weight>=1000 && data.Weight<2000){
