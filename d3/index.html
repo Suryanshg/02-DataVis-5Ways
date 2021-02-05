@@ -9,8 +9,8 @@
     .attr("height",height)
     
  
-  d3.csv("/cars-sample.csv",function(data){
-
+  d3.csv("cars-sample.csv",function(data){
+      console.log(data.MPG)
       var xScale = d3.scaleLinear().domain([1500,5000]).range([0,500]);
       var yScale = d3.scaleLinear().domain([8,50]).range([500,0]);
       var xAxis = d3.axisBottom().scale(xScale).ticks(4)
