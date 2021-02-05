@@ -1,0 +1,65 @@
+<script src="https://d3js.org/d3.v6.min.js"></script>
+<div id="scatter"></div>
+<script>
+  //console.log(d3); // test if d3 is loaded
+  var width = 600, height = 600 // x-padding is 50 and y-padding is 10
+  var svg = d3.select("#scatter")
+    .append("svg")
+    .attr("width",width)
+    .attr("height",height)
+    
+ 
+  d3.csv("/cars-sample.csv",function(data){
+    
+    var xScale = d3.scaleLinear().domain([1500,5000]).range([0,500]);
+    var yScale = d3.scaleLinear().domain([8,50]).range([500,0]);
+
+    var xAxis = d3.axisBottom().scale(xScale).ticks(4)
+    var yAxis = d3.axisLeft().scale(yScale).ticks(4)
+
+    svg.append("g")
+    .attr("transform","translate(50,510)")
+    .call(xAxis)
+    svg.append("g")
+    .attr("transform","translate(50,10)")
+    .call(yAxis)
+    
+
+    svg.selectAll('circle')
+    .data(data)
+    .enter().append('circle')
+    .attr('cx',function(d){
+        console.log(d.Weight)
+        return xScale(d.Weight) + 50
+    })
+    .attr('cy',function(d){
+        return 510 - yScale(d.MPG) 
+    })
+    .attr('r',5)
+    .attr('fill',"black")
+
+
+
+
+  })
+
+
+ 
+</script>
+<!-- .attr('fill',function(d){
+    if(d.Manufacturer=="bmw"){
+        return "orange"
+    }
+    else if(d.Manufacturer=="ford"){
+        return "green"
+    }
+    else if(d.Manufacturer=="honda"){
+        return "lightblue"
+    }
+    else if(d.Manufacturer=="mercedes"){
+        return "darkblue"
+    }
+    else if(d.Manufacturer=="toyota"){
+        return "purple"
+    }
+}) -->
