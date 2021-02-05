@@ -36,18 +36,8 @@
             return yScale(data.MPG) 
         })
         .attr('r',function(d){
-            if(data.Weight>=1000 && data.Weight<2000){
-                return 5
-            }
-            else if(data.Weight>=2000 && data.Weight<3000){
-                return 7.5
-            }
-            else if(data.Weight>=3000 && data.Weight<4000){
-                return 10
-            }
-            else if(data.Weight>=4000 && data.Weight<5000){
-                return 12.5
-            }
+            return 2.5 * (data.Weight/1000)
+
 
         })
         .attr('fill',function(d){
@@ -75,3 +65,15 @@
  
 </script>
 
+<!-- if(data.Weight>=1000 && data.Weight<2000){
+    return 5
+}
+else if(data.Weight>=2000 && data.Weight<3000){
+    return 7.5
+}
+else if(data.Weight>=3000 && data.Weight<4000){
+    return 10
+}
+else if(data.Weight>=4000 && data.Weight<5000){
+    return 12.5
+} -->
