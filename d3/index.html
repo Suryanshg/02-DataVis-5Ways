@@ -1,4 +1,24 @@
-<script src="https://d3js.org/d3.v6.min.js"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scatter</title>
+
+    <style>
+        body {
+            font-family: "Times New Roman", Times, serif;
+        }
+        .tooltip {
+            position: absolute;
+            font-size: 20px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
 <div id="scatter"></div>
 <script>
   //console.log(d3); // test if d3 is loaded
@@ -10,7 +30,7 @@
     
  
   d3.csv("cars-sample.csv",function(data){
-      console.log(data.MPG)
+      //console.log(data.MPG)
       var xScale = d3.scaleLinear().domain([1500,5000]).range([0,500]);
       var yScale = d3.scaleLinear().domain([8,50]).range([500,0]);
       var xAxis = d3.axisBottom().scale(xScale).ticks(4)
@@ -24,10 +44,12 @@
       .attr("transform","translate(50,10)")
       .call(yAxis)
 
+      var toolTip = d3.select("#scatter") 
+      .append("div")
+      .style("opacity", 0)
+      .attr("class", "tooltip")
+
       svg
-      //.selectAll('circle')
-      //.data(data)
-      //.enter()
       .append('circle')
       .attr('cx',function(d){
           return 50 + xScale(data.Weight)
@@ -59,11 +81,37 @@
         })
         .attr('opacity',0.5)
         .on('mouseover',function(){
-            d3.select(this).attr('opacity',1)
-        }).on('mouseout',function(){
-            d3.select(this).attr('opacity',0.5)
+
+            d3.select(this)
+            .attr("opacity", 1)
+
+            toolTip
+            .html(data.Car)
+            .style("left", d3.select(this).attr('cx'))
+            .style("top", d3.select(this).attr('cy'))
+            .transition()
+            .duration(200)
+            .style("opacity", 1)
+
+            //console.log(d3.select(this).attr('cy'))
+          
+
+        })
+
+        .on('mouseout',function(){
+
+            d3.select(this)
+            .attr("opacity", 0.5)
+
+            toolTip
+            .transition()
+            .duration(300)
+            .style("opacity", 0)
+            
+         
         })
         
+
         svg.append("text")
         .attr("transform",
         "translate(" + (width/2)+","+
@@ -81,6 +129,11 @@
     })
 
 </script>
+    
+</body>
+</html>
+
+
 
 <!-- if(data.Weight>=1000 && data.Weight<2000){
     return 5
