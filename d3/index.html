@@ -14,6 +14,8 @@
             position: absolute;
             font-size: 20px;
             pointer-events: none;
+            background-color: rgb(236, 195, 90);
+            padding: 5px 5px 5px 5px;
         }
     </style>
 </head>
@@ -86,9 +88,9 @@
             .attr("opacity", 1)
 
             toolTip
-            .html(data.Car)
-            .style("left", d3.select(this).attr('cx'))
-            .style("top", d3.select(this).attr('cy'))
+            .text(data.Car)
+            .style("left", d3.select(this).attr('cx')+"px")
+            .style("top", (d3.select(this).attr('cy')-30)+"px")
             .transition()
             .duration(200)
             .style("opacity", 1)
